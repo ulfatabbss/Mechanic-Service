@@ -63,7 +63,9 @@ const SearchMechanic = ({route,navigation}) => {
        <TouchableOpacity
        style={{alignSelf:'center',height:40,width:60,backgroundColor:'#5b18b4',alignItems:'center',justifyContent:'center',borderRadius:10}}
        onPress={()=>{navigation.navigate('SubmitRequest',{
-        mechanic_id:item.id
+        mechanic_id:item.id,
+        lat:lat,
+        long:long
         })}}>
       <Text style={{fontSize:14,color:'white'}}>Contact</Text>
        </TouchableOpacity>

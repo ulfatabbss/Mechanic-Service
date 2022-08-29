@@ -1,8 +1,9 @@
-import {Alert,StyleSheet, Text, View,Image, Dimensions, SafeAreaView, TouchableOpacity, ScrollView,StatusBar,FlatList } from 'react-native'
+import {Alert,StyleSheet, Text, View,Image, Dimensions, SafeAreaView, TouchableOpacity,StatusBar,FlatList } from 'react-native'
 import React,{useContext,useEffect, useState} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Header from '../components/Header'
 import COLORS from '../content/color'
+import { ScrollView } from 'react-native-virtualized-view';
 import { OrientationLocker, PORTRAIT } from "react-native-orientation-locker";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { AuthContext } from '../navigation/AuthProvider';
@@ -45,7 +46,7 @@ const Home = ({navigation}) => {
         onPress = {()=> navigation.navigate('Companies',{category_id:data.id})}        >
         <View style={styles.card}>
             <Image source={{ uri:img }}
-              style={{ height:120,width:120,alignSelf:'center'}} resizeMode='contain'
+              style={{ height:100,width:100,alignSelf:'center'}} resizeMode='contain'
             />
           <Text style={{fontWeight: 'bold', fontSize: 20,alignSelf:'center',color:'black'}}>
             {data.title} 
@@ -56,24 +57,29 @@ const Home = ({navigation}) => {
     );
   };
   return (
-    <SafeAreaView style={{flex:1,alignItems:'center',backgroundColor:COLORS.white}}>
+    <ScrollView style={{flex:1,backgroundColor:COLORS.white}}>
                   <Spinner visible={isLoading} />
        <StatusBar
         animated={true}
         backgroundColor="#5b18b4"/>
         <OrientationLocker orientation={PORTRAIT} />
+        <View style={{flex:1,alignItems:'center',marginBottom:60}}>
+
+      
       <Header/>
       <View style={{marginVertical:10,height:150,width:Dimensions.get('window').width-20,borderRadius:10,backgroundColor:COLORS.light,borderColor:COLORS.primary,borderWidth:2,alignItems:'center',elevation:10}}>
       <Image style={{height:'100%',width:'100%',borderRadius:20}} resizeMode='contain' source={require('../assests/bann.jpg')}/>
       </View>
-      <Text style={{color:'#000',fontWeight:'700',fontSize:30,lineHeight:30,fontFamily:'Poppins',marginTop:30}}>Dashboard</Text>  
-      <Text style={{color:'#000',fontWeight:'700',fontSize:20,lineHeight:20,fontFamily:'Poppins',margin:10,textTransform:'capitalize'}}>Choose the servise you require</Text>  
+      <Text style={{color:'#000',fontWeight:'700',fontSize:30,fontFamily:'Poppins',marginTop:10}}>Dashboard</Text>  
+      <Text style={{color:'#000',fontWeight:'700',fontSize:20,fontFamily:'Poppins',margin:10,textTransform:'capitalize'}}>Choose the servise you require</Text>  
+      
+      <View style={{}}>
       <FlatList
         columnWrapperStyle={{justifyContent: 'space-between'}}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           marginTop: 10,
-          paddingBottom: 20,
+          marginBottom:50,
         }}
         numColumns={2}
         data={categories}
@@ -82,7 +88,9 @@ const Home = ({navigation}) => {
           return <Card data={item} />;
         }}
       />
-    </SafeAreaView>
+        </View>
+        </View>
+    </ScrollView>
 
   )
 }

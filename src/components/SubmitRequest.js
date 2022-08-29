@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,TouchableOpacity,Image, TextInput, SafeAreaView, KeyboardAvoidingView, Dimensions } from 'react-native'
+import { StyleSheet, Text, View,TouchableOpacity,Image, TextInput, SafeAreaView, KeyboardAvoidingView, Dimensions, Alert } from 'react-native'
 import React, { useState,useEffect,useContext} from 'react'
 import { AuthContext } from '../navigation/AuthProvider';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -8,7 +8,7 @@ import COLORS from '../content/color';
 const SubmitRequest = ({route,navigation}) => {
   const {userInfo} = useContext(AuthContext);
   const [isLoading,setloding]=useState(false)
-    const {mechanic_id} =route.params
+    const {mechanic_id,lat,long} =route.params
     const [title, setTittle] = useState('');
     const [description, setDescription] = useState('');
   const handleStore=()=>{
@@ -18,33 +18,37 @@ const SubmitRequest = ({route,navigation}) => {
     console.log(mechanic_id);
     setloding(true)
     var axios = require('axios');
-    var FormData = require('form-data');
-    var data = new FormData();
-    data.append('title', 'bike problem');
-    data.append('description', 'bike not start');
-    data.append('category_id', '1');
-    data.append('mechanic_id', '20');
-    data.append('customer_id', '12');
-    
-    var config = {
-      method: 'post',
-      url: 'https://abdulrauf.laraartisan.com/api/repairingRequest/save',
-      headers: { 
-        'Accept': 'application/json', 
-        'Content-Type': 'application/json', 
-        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FiZHVscmF1Zi5sYXJhYXJ0aXNhbi5jb20vYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE2NjEzNjM1NDAsImV4cCI6MTY2MTM2NzE0MCwibmJmIjoxNjYxMzYzNTQwLCJqdGkiOiJlRjM0bTU4N0RLYjU3SkpqIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjciLCJodHRwczovL2FiZHVscmF1Zi5sYXJhYXJ0aXNhbi5jb20vZ3Vlc3QiOiIwIiwic2NvcGUiOiJndWVzdCJ9.gUkdTyJsk8QIwo3kwrtx9Y622aQ4V_R5N-a7u-pduX4', 
-        ...data
-      },
-      data : data
-    };
-    
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+var data = JSON.stringify({
+  "title": title,
+  "description": description,
+  "mechanic_id": mechanic_id,
+  "customer_id":userInfo.user.id,
+  "category_id": "1"
+});
+
+var config = {
+  method: 'post',
+  url: 'https://abdulrauf.laraartisan.com/api/repairingRequest/save',
+  headers: { 
+    'Accept': 'application/json', 
+    'Content-Type': 'application/json', 
+    'Authorization': `Bearer ${userInfo.access_token}`
+  },
+  data : data
+};
+axios(config)
+.then(function (response) {
+  setloding(false)
+  console.log(JSON.stringify(response.data));
+  navigation.navigate("CardView"),
+  Alert.alert(
+    'Request submit successfull...'
+ )
+})
+.catch(function (error) {
+  console.log(error);
+  setloding(false)
+});
 }
 
   return (
@@ -58,8 +62,6 @@ const SubmitRequest = ({route,navigation}) => {
       </View>
       <Text style={{color:'#fff',fontSize:30,lineHeight:30,fontWeight:'700',fontFamily:'Poppins',textTransform:'capitalize'}}>Request mechanic</Text>
     </View>
-
-   
 </View>
 <View style={{backgroundColor:'#fff',elevation:10,margin:20,height:60,justifyContent:'center',borderColor:COLORS.primary,borderWidth:2,borderRadius:10}}>
 <TextInput placeholder='Title' placeholderTextColor={'#000'}
@@ -70,6 +72,10 @@ style={{paddingHorizontal:10,height:60,borderRadius:5,color:'#000'}}></TextInput
 <TextInput placeholder='Description' placeholderTextColor={'#000'}
  value={description} onChangeText={(text) => setDescription(text)}
  style={{paddingHorizontal:10,borderRadius:5,color:'#000'}}></TextInput>
+</View><View style={{height:100,width:Dimensions.get('window').width-40,alignSelf:'center'}}>
+<Text style={{fontSize:30,color:COLORS.primary,fontWeight:'bold',padding:5,borderRadius:10}}>Your Current Location</Text>
+<Text style={{fontSize:20,color:'#000',padding:5}}>Latitude: {lat}</Text>
+<Text style={{fontSize:20,color:'#000',padding:5}}>Longitude: {long}</Text>
 </View>
 <TouchableOpacity style={styles.button}  onPress={() => {handleStore()}}>
 <Text style={{color:'#fff',fontSize:20,fontWeight:'bold'}}>Submit Form</Text>
