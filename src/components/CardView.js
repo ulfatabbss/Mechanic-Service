@@ -51,7 +51,7 @@ axios(config)
   <TextInput  value={cardNubmer} onChangeText={(text) => setCardNubmer(text)}
    placeholder='•••• •••• •••• ••••' style={[s.baseText, s.number,s.placeholder]}/>
   <TextInput placeholder='FULL NAME' style={[s.baseText,s.name]}/>
-  <TextInput placeholder='MONTH/YEAR' style={[s.baseText,s.expiryLabel, s.placeholder]}
+  <TextInput placeholder='AMOUNT' style={[s.baseText,s.expiryLabel, s.placeholder]}
    value={amount} onChangeText={(text) => setAmount(text)}/>
               <TextInput placeholder=' ••/••' style={[s.baseText,s.expiry,s.placeholder]}/>
               <TextInput placeholder='•••' style={[s.baseText, s.amexCVC, s.placeholder]}/>
