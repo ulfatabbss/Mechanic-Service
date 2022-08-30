@@ -40,7 +40,7 @@ axios(config)
 .then(function (response) {
   setloding(false)
   console.log(JSON.stringify(response.data));
-  navigation.navigate("CardView"),
+  navigation.navigate("CardView",{}),
   Alert.alert(
     'Request submit successfull...'
  )
