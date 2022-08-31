@@ -3,6 +3,7 @@ import React, { useState,useEffect,useContext} from 'react'
 import { AuthContext } from '../navigation/AuthProvider';
 import Spinner from 'react-native-loading-spinner-overlay';
 import COLORS from '../content/color';
+import { ScrollView } from 'react-native-virtualized-view';
 
 
 const SubmitRequest = ({route,navigation}) => {
@@ -52,8 +53,7 @@ axios(config)
 }
 
   return (
-        <KeyboardAvoidingView>
-          <View style={styles.container}>
+          <ScrollView style={styles.container}>
         <Spinner visible={isLoading} />
          <View style={styles.header}>
     <View style={{justifyContent:'center',flexDirection:'row',alignItems:'center',}}>
@@ -68,11 +68,12 @@ axios(config)
  value={title} onChangeText={(text) => setTittle(text)}
 style={{paddingHorizontal:10,height:60,borderRadius:5,color:'#000'}}></TextInput>
 </View>
-<View style={{height:400,backgroundColor:'#fff',margin:20,elevation:10,borderColor:COLORS.primary,borderWidth:2,borderRadius:10}}>
+<View style={{height:200,backgroundColor:'#fff',margin:20,elevation:10,borderColor:COLORS.primary,borderWidth:2,borderRadius:10}}>
 <TextInput placeholder='Description' placeholderTextColor={'#000'}
  value={description} onChangeText={(text) => setDescription(text)}
  style={{paddingHorizontal:10,borderRadius:5,color:'#000'}}></TextInput>
-</View><View style={{height:100,width:Dimensions.get('window').width-40,alignSelf:'center'}}>
+</View>
+<View style={{height:200,width:Dimensions.get('window').width-40,alignSelf:'center'}}>
 <Text style={{fontSize:30,color:COLORS.primary,fontWeight:'bold',padding:5,borderRadius:10}}>Your Current Location</Text>
 <Text style={{fontSize:20,color:'#000',padding:5}}>Latitude: {lat}</Text>
 <Text style={{fontSize:20,color:'#000',padding:5}}>Longitude: {long}</Text>
@@ -80,8 +81,7 @@ style={{paddingHorizontal:10,height:60,borderRadius:5,color:'#000'}}></TextInput
 <TouchableOpacity style={styles.button}  onPress={() => {handleStore()}}>
 <Text style={{color:'#fff',fontSize:20,fontWeight:'bold'}}>Submit Form</Text>
 </TouchableOpacity>
-</View>
-</KeyboardAvoidingView>
+</ScrollView>
   )
 }
 
@@ -89,9 +89,9 @@ export default SubmitRequest
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,width:Dimensions.get('window').width,
-        marginBottom:60,
-         height: '100%',position:"absolute"
+        flex: 1,
+        height:Dimensions.get('window').height,
+        width:Dimensions.get('window').width
       },
     header:{
         flexDirection:'row',
@@ -102,11 +102,11 @@ const styles = StyleSheet.create({
         alignItems:'center',
         alignSelf:'center'
     },
-      button: {alignSelf:'center',
-        justifyContent:'flex-end',
-        top:20,height:60,
+      button: {alignSelf:'center'
+        ,height:50,marginTop:20,bottom:5,position:'absolute',
         backgroundColor:COLORS.primary,
-        width:200,justifyContent:'center'
+        width:150,justifyContent:'center'
         ,alignItems:'center',
-        borderRadius:10}
+        borderRadius:10
+      }
 })

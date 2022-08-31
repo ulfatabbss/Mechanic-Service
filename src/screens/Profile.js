@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TouchableOpacity,Dimensions } from "react-native";
 import React,{useContext} from 'react'
 import { AuthContext } from "../navigation/AuthProvider";
 const Profile = ({navigation}) => {
@@ -30,10 +30,28 @@ const Profile = ({navigation}) => {
         onPress={()=>navigation.navigate("EditProfile",{navigation:navigation})}>
 <Text style={{fontSize:10,color:'#fff',fontWeight:'bold'}}>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{height:50,width:100,backgroundColor:'#5b18b4',borderRadius:10,margin:50,alignItems:"center",justifyContent:"center"}} 
-        onPress={()=>navigation.navigate("CardView")}>
-<Text style={{fontSize:20,color:'#fff',fontWeight:'bold'}}>Payments</Text>
+        <TouchableOpacity style={styles.filed}>
+        <Image style={{height:30,width:30,marginHorizontal:20}} source={{uri:'https://img.icons8.com/color/2x/appointment-reminders.png'}}/>
+        <Text style={{fontSize:20,color:'black',fontWeight:"bold"}}>Push Notification</Text>
+        <Image style={{height:40,width:40,marginHorizontal:100}} source={{uri:'https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/2x/external-toggle-user-interface-smashingstocks-glyph-smashing-stocks.png'}}/>
+
         </TouchableOpacity>
+        <TouchableOpacity style={styles.filed}>
+        <Image style={{height:30,width:30,marginHorizontal:20}} source={{uri:'https://img.icons8.com/arcade/2x/experimental-marker-arcade.png'}}/>
+        <Text style={{fontSize:20,color:'black',fontWeight:"bold"}}>Location</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.filed}>
+<Image style={{height:30,width:30,marginHorizontal:20}} source={{uri:'https://img.icons8.com/external-flaticons-flat-flat-icons/2x/external-languages-digital-nomading-relocation-flaticons-flat-flat-icons.png'}}/>
+<Text style={{fontSize:20,color:'black',fontWeight:"bold"}}>Language</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.filed}>
+<Image style={{height:30,width:30,marginHorizontal:20}} source={{uri:'https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/2x/external-group-cyber-security-kiranshastry-lineal-color-kiranshastry-2.png'}}/>
+<Text style={{fontSize:20,color:'black',fontWeight:"bold"}}>About Us</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.filed}>
+<Image style={{height:30,width:30,marginHorizontal:20}} source={{uri:'https://img.icons8.com/external-others-pike-picture/2x/external-corporate-policies-data-process-others-pike-picture.png'}}/>
+<Text style={{fontSize:20,color:'black',fontWeight:"bold"}}>Terms and Policies</Text>
+</TouchableOpacity>
     </ScrollView>
 </SafeAreaView>
   )
@@ -170,5 +188,10 @@ ptext:{
   fontSize:16,
   fontWeight:'500',
 color:'#000'
+},filed:{
+  height:60,
+  width:Dimensions.get("window").width-40,
+  alignSelf:"center",
+  borderRadius:10,marginVertical:10,flexDirection:"row",alignItems:"center"
 }
 });

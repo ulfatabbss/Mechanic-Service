@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View,SafeAreaView,Image,TouchableOpacity,FlatList } from 'react-native'
+import { StyleSheet, Text, View,SafeAreaView,Image,TouchableOpacity,FlatList} from 'react-native'
 import React,{useContext,useEffect, useState} from 'react';
 import { AuthContext } from '../navigation/AuthProvider';
 import Spinner from 'react-native-loading-spinner-overlay';
 import COLORS from '../content/color';
+import { ScrollView } from 'react-native-virtualized-view';
 
 const SearchMechanic = ({route,navigation}) => {
     const {userInfo,Clocation} = useContext(AuthContext);
@@ -73,7 +74,7 @@ const SearchMechanic = ({route,navigation}) => {
       );
   return (
        
-        <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.container}>
              <Spinner visible={isLoading} />
           <View style={styles.header}>
     <View style={{justifyContent:'center',flexDirection:'row',alignItems:'center',}}>
@@ -97,7 +98,7 @@ const SearchMechanic = ({route,navigation}) => {
       data={data}
       renderItem={renderItem}
     />
-  </SafeAreaView>
+  </ScrollView>
   )
 }
 
