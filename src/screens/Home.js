@@ -27,7 +27,6 @@ const Home = ({navigation}) => {
     
     axios(config)
     .then(function (response) {
-      // console.log(JSON.stringify(response.data.data));
       setCategories(response.data.data)
       setloding(false)
     })
@@ -35,7 +34,7 @@ const Home = ({navigation}) => {
       console.log(error);
       setloding(false)
     });
-  },[userInfo]);
+  },[]);
 
   
   const Card = ({data}) => {
@@ -70,8 +69,8 @@ const Home = ({navigation}) => {
       <View style={{marginVertical:10,height:150,width:Dimensions.get('window').width-20,borderRadius:10,backgroundColor:COLORS.light,borderColor:COLORS.primary,borderWidth:2,alignItems:'center',elevation:10}}>
       <Image style={{height:'100%',width:'100%',borderRadius:20}} resizeMode='contain' source={require('../assests/bann.jpg')}/>
       </View>
-      <Text style={{color:'#000',fontWeight:'700',fontSize:30,fontFamily:'Poppins',marginTop:10}}>Dashboard</Text>  
-      <Text style={{color:'#000',fontWeight:'700',fontSize:20,fontFamily:'Poppins',margin:10,textTransform:'capitalize'}}>Choose the servise you require</Text>  
+      <Text style={[styles.text,{marginTop:10}]}>Dashboard</Text>  
+      <Text style={[styles.text,{margin:10,textTransform:'capitalize'}]}>Choose the servise you require</Text>  
       
       <View style={{}}>
       <FlatList
@@ -107,5 +106,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 10,
   },
+  text:{
+    color:'#000',
+    fontWeight:'700',
+    fontSize:30,
+    fontFamily:'Poppins'
+  }
 
 })

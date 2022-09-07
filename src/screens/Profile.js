@@ -8,18 +8,11 @@ const Profile = ({navigation}) => {
     <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.titleBar}>
         </View>
-
         <View style={{ alignSelf: "center" }}>
             <View style={styles.profileImage}>
                 <Image source={{uri:'https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjV8fHByb2ZpbGUlMjBwaG90b3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60'}} style={styles.image} resizeMode="center"></Image>
             </View>
-            <View style={styles.dm}>
-                {/* <MaterialIcons name="chat" size={18} color="#DFD8C8"></MaterialIcons> */}
-            </View>
             <View style={styles.active}></View>
-            <View style={styles.add}>
-                {/* <Ionicons name="ios-add" size={48} color="#DFD8C8" style={{ marginTop: 6, marginLeft: 2 }}></Ionicons> */}
-            </View>
         </View>
 
         <View style={styles.infoContainer}>
@@ -30,28 +23,6 @@ const Profile = ({navigation}) => {
         onPress={()=>navigation.navigate("EditProfile",{navigation:navigation})}>
 <Text style={{fontSize:10,color:'#fff',fontWeight:'bold'}}>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.filed}>
-        <Image style={{height:30,width:30,marginHorizontal:20}} source={{uri:'https://img.icons8.com/color/2x/appointment-reminders.png'}}/>
-        <Text style={{fontSize:20,color:'black',fontWeight:"bold"}}>Push Notification</Text>
-        <Image style={{height:40,width:40,marginHorizontal:100}} source={{uri:'https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/2x/external-toggle-user-interface-smashingstocks-glyph-smashing-stocks.png'}}/>
-
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.filed}>
-        <Image style={{height:30,width:30,marginHorizontal:20}} source={{uri:'https://img.icons8.com/arcade/2x/experimental-marker-arcade.png'}}/>
-        <Text style={{fontSize:20,color:'black',fontWeight:"bold"}}>Location</Text>
-</TouchableOpacity>
-<TouchableOpacity style={styles.filed}>
-<Image style={{height:30,width:30,marginHorizontal:20}} source={{uri:'https://img.icons8.com/external-flaticons-flat-flat-icons/2x/external-languages-digital-nomading-relocation-flaticons-flat-flat-icons.png'}}/>
-<Text style={{fontSize:20,color:'black',fontWeight:"bold"}}>Language</Text>
-</TouchableOpacity>
-<TouchableOpacity style={styles.filed}>
-<Image style={{height:30,width:30,marginHorizontal:20}} source={{uri:'https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/2x/external-group-cyber-security-kiranshastry-lineal-color-kiranshastry-2.png'}}/>
-<Text style={{fontSize:20,color:'black',fontWeight:"bold"}}>About Us</Text>
-</TouchableOpacity>
-<TouchableOpacity style={styles.filed}>
-<Image style={{height:30,width:30,marginHorizontal:20}} source={{uri:'https://img.icons8.com/external-others-pike-picture/2x/external-corporate-policies-data-process-others-pike-picture.png'}}/>
-<Text style={{fontSize:20,color:'black',fontWeight:"bold"}}>Terms and Policies</Text>
-</TouchableOpacity>
     </ScrollView>
 </SafeAreaView>
   )
@@ -89,16 +60,6 @@ profileImage: {
   height: 200,
   borderRadius: 100,
   overflow: "hidden"
-},
-dm: {
-  backgroundColor: "#41444B",
-  position: "absolute",
-  top: 20,
-  width: 40,
-  height: 40,
-  borderRadius: 20,
-  alignItems: "center",
-  justifyContent: "center"
 },
 active: {
   backgroundColor: "#34FFB9",
