@@ -7,8 +7,7 @@ const BASE_SIZE = { width: 300, height: 190 };
 import Spinner from 'react-native-loading-spinner-overlay';
 const CardView = ({navigation,route}) => {
   const {userInfo} = useContext(AuthContext);
-  const {price} =route.params
-  const [rrid, setRrid] = useState('1');
+  const {price,rrid} =route.params
   const [isLoading,setloding]=useState(false)
   const amount=price;
   const [cardNubmer, setCardNubmer] = useState('');
@@ -20,7 +19,7 @@ var data = JSON.stringify({
 
 var config = {
   method: 'post',
-  url: `https://abdulrauf.laraartisan.com/api/payment/pay?rr_id=${rrid}&amount=${amount}&card_nubmer=${cardNubmer}`,
+  url: `https://abdulrauf.laraartisan.com/api/payment/pay?rr_id=${rrid}&amount=${price}&card_nubmer=${cardNubmer}`,
   headers: { 
     'Accept': 'application/json', 
     'Content-Type': 'application/json', 
@@ -32,9 +31,6 @@ axios(config)
 .then(function (response) {
   setloding(false)
   console.log(JSON.stringify(response.data));
-  Alert.alert(
-    'Transition Successfull...'
- );
  navigation.replace("Tabs");
 })
 .catch(function (error) {
@@ -50,7 +46,7 @@ axios(config)
       <View style={{height:190,width:300,backgroundColor:'white',borderRadius:10,overflow:'hidden'}}>
 <ImageBackground source={require('../assests/card-front.png')} style={{height:195,width:310}}>
   <Image source={require('../components/icons/stp_card_visa.png')} style={s.icon}/>
-  <TextInput  value={cardNubmer} onChangeText={(text) => setCardNubmer(text)}
+  <TextInput  value={cardNubmer} onChangeText={(text) => setCardNubmer(text)} maxLength={16}
    placeholder='•••• •••• •••• ••••' style={[s.baseText, s.number,s.placeholder]} keyboardType={'number-pad'}/>
   <TextInput placeholder='FULL NAME' style={[s.baseText,s.name]}/>
   <Text placeholder='AMOUNT' style={[s.baseText,s.expiryLabel, s.placeholder,{fontSize:16}]}>AMOUNT</Text>

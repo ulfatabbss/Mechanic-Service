@@ -32,10 +32,9 @@ var config = {
 };
 axios(config)
 .then(function (response) {
-  navigation.navigate("CardView",{price:price});
-  Alert.alert(
-    'Request Submit successfull'
- );
+  // console.log(response.data.data.customer.id);
+  navigation.navigate("CardView",
+  {price:price,rrid:response.data.data.id});
   setloding(false)
 })
 .catch(function (error) {

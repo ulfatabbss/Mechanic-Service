@@ -4,6 +4,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import Header from './Header'
 import COLORS from '../content/color';
 import { AuthContext } from '../navigation/AuthProvider';
+import MechanicHeader from './MechanicHeader';
 
 const UserRequest = ({navigation}) => {
   const [uRequest,setURequest]=useState([]);
@@ -92,7 +93,7 @@ const Card = ({item}) => {
          <StatusBar
         animated={true}
         backgroundColor="#5b18b4"/>
-      <Header/>
+     <MechanicHeader/>
 
      
       <Text style={styles.heading}>All request</Text>
