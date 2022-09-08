@@ -5,11 +5,12 @@ import { AuthContext } from '../navigation/AuthProvider';
 
 const BASE_SIZE = { width: 300, height: 190 };
 import Spinner from 'react-native-loading-spinner-overlay';
-const CardView = ({navigation}) => {
+const CardView = ({navigation,route}) => {
   const {userInfo} = useContext(AuthContext);
+  const {price} =route.params
   const [rrid, setRrid] = useState('1');
   const [isLoading,setloding]=useState(false)
-  const [amount, setAmount] = useState('');
+  const amount=price;
   const [cardNubmer, setCardNubmer] = useState('');
   const handPayment=()=>{
     setloding(true)
@@ -31,10 +32,10 @@ axios(config)
 .then(function (response) {
   setloding(false)
   console.log(JSON.stringify(response.data));
-  navigation.replace("Home"),
   Alert.alert(
-    'Transaction successfull...'
- )
+    'Transition Successfull...'
+ );
+ navigation.replace("Tabs");
 })
 .catch(function (error) {
   console.log(error);
@@ -44,17 +45,16 @@ axios(config)
   return (
     <KeyboardAvoidingView>
               <Spinner visible={isLoading} />
+              <Text style={{fontSize:30,color:'#000',alignSelf:'center',marginTop:30}}>Payment Method</Text>
     <View style={[s.cardContainer]}>
       <View style={{height:190,width:300,backgroundColor:'white',borderRadius:10,overflow:'hidden'}}>
 <ImageBackground source={require('../assests/card-front.png')} style={{height:195,width:310}}>
   <Image source={require('../components/icons/stp_card_visa.png')} style={s.icon}/>
   <TextInput  value={cardNubmer} onChangeText={(text) => setCardNubmer(text)}
-   placeholder='•••• •••• •••• ••••' style={[s.baseText, s.number,s.placeholder]}/>
+   placeholder='•••• •••• •••• ••••' style={[s.baseText, s.number,s.placeholder]} keyboardType={'number-pad'}/>
   <TextInput placeholder='FULL NAME' style={[s.baseText,s.name]}/>
-  <TextInput placeholder='AMOUNT' style={[s.baseText,s.expiryLabel, s.placeholder]}
-   value={amount} onChangeText={(text) => setAmount(text)}/>
-              <TextInput placeholder=' ••/••' style={[s.baseText,s.expiry,s.placeholder]}/>
-              <TextInput placeholder='•••' style={[s.baseText, s.amexCVC, s.placeholder]}/>
+  <Text placeholder='AMOUNT' style={[s.baseText,s.expiryLabel, s.placeholder,{fontSize:16}]}>AMOUNT</Text>
+              <Text style={[s.baseText,s.expiry,s.placeholder]}>{amount}</Text>
 </ImageBackground>
       </View>
       <TouchableOpacity style={s.button} onPress={() => {handPayment()}}>
@@ -81,11 +81,11 @@ const s = StyleSheet.create({
     resizeMode: "contain",
   },
   baseText: {
-    color: "rgba(255, 255, 255, 0.8)",
+    color: "rgba(255, 255, 255, 0.9)",
     backgroundColor: "transparent",
   },
   placeholder: {
-    color: "rgba(255, 255, 255, 0.5)",
+    color: "rgba(255, 255, 255, 0.9)",
   },
   focused: {
     fontWeight: "bold",

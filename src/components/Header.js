@@ -7,7 +7,6 @@ const Header = () => {
   const [isLoading,setloding]=useState(true)
   const [count,setCount]=useState(true)
   const notiication=()=>{
-    setInterval(() => {
     setloding(true);
     var axios = require('axios');
     var data = '';
@@ -25,7 +24,6 @@ const Header = () => {
     
     axios(config)
     .then(function (response) {
-      // console.log(JSON.stringify(response.data));
       setCount(response.data);
       setloding(false);
     })
@@ -33,7 +31,6 @@ const Header = () => {
       console.log(error);
       setloding(false);
     });
-  }, 15000)
   }
   useEffect(() => {
    notiication();

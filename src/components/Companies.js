@@ -105,7 +105,7 @@ console.log(category_id,'category_id')
         backgroundColor="#5b18b4"/>
     <View style={styles.header}>
       <Image source={require('../assests/office-building.png')} style={{height:30,width:30,marginRight:30,backgroundColor:'#fff'}}/>
-<Text style={styles.text}>Slect Companie</Text>
+<Text style={styles.text}>Select Company</Text>
     </View>
    <FlatList
         columnWrapperStyle={{justifyContent: 'space-between'}}
@@ -149,6 +149,6 @@ const styles = StyleSheet.create({
     text:{
 fontSize:30,
 fontWeight:'bold',
-color:'#fff'
+color:'#fff',textTransform:'uppercase'
     }
 })

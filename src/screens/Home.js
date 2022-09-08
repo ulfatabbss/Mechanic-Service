@@ -70,9 +70,9 @@ const Home = ({navigation}) => {
       <Image style={{height:'100%',width:'100%',borderRadius:20}} resizeMode='contain' source={require('../assests/bann.jpg')}/>
       </View>
       <Text style={[styles.text,{marginTop:10}]}>Dashboard</Text>  
-      <Text style={[styles.text,{margin:10,textTransform:'capitalize'}]}>Choose the servise you require</Text>  
+      <Text style={[styles.text,{margin:10,textTransform:'capitalize'}]}>Choose the service</Text>  
       
-      <View style={{}}>
+      <View>
       <FlatList
         columnWrapperStyle={{justifyContent: 'space-between'}}
         showsVerticalScrollIndicator={false}

@@ -80,11 +80,9 @@ const Overlay = styled.View`
 `
 
 const Login = ({ navigation }) => {
-
-    const [email, setEmail] = useState('mechanic2@gmail.com');
+    const [email, setEmail] = useState('user2@gmail.com');
     const [password, setPassword] = useState('12345678');
     const {isLoading, login} = useContext(AuthContext);
-
     return (
         <>
 			<StatusBar

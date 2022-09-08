@@ -110,7 +110,7 @@ const Vehicales = ({navigation,route}) => {
         backgroundColor="#5b18b4"/>
     <View style={styles.header}>
     <Image source={require('../assests/office-building.png')} style={{height:30,width:30,marginRight:30,backgroundColor:'#fff'}}/>
-<Text style={styles.text}>Select Vehicale
+<Text style={styles.text}>Select Vehicle
 </Text>
         
     </View>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     text:{
 fontSize:30,
 fontWeight:'bold',
-color:'#fff'
+color:'#fff',textTransform:'uppercase'
     },
     button: {  position: 'absolute', 
      bottom:20,

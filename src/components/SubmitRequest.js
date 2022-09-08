@@ -1,25 +1,18 @@
-import { StyleSheet, Text, View,TouchableOpacity,Image, TextInput, SafeAreaView, KeyboardAvoidingView, Dimensions, Alert } from 'react-native'
+import { StyleSheet, Text, View,TouchableOpacity,Image, TextInput,Dimensions, Alert } from 'react-native'
 import React, { useState,useEffect,useContext} from 'react'
 import { AuthContext } from '../navigation/AuthProvider';
 import Spinner from 'react-native-loading-spinner-overlay';
 import COLORS from '../content/color';
-import { ScrollView } from 'react-native-virtualized-view';
-
-
 const SubmitRequest = ({route,navigation}) => {
   const {userInfo} = useContext(AuthContext);
   const [isLoading,setloding]=useState(false)
-    const {mechanic_id,lat,long} =route.params
+    const {mechanic_id,lat,long,price} =route.params
     const [title, setTittle] = useState('');
     const [description, setDescription] = useState('');
   const handleStore=()=>{
-    console.log(userInfo.user.id);
-    console.log(title);
-    console.log(description);
-    console.log(mechanic_id);
     setloding(true)
     var axios = require('axios');
-var data = JSON.stringify({
+var data = ({
   "title": title,
   "description": description,
   "mechanic_id": mechanic_id,
@@ -39,41 +32,48 @@ var config = {
 };
 axios(config)
 .then(function (response) {
-  setloding(false)
-  console.log(JSON.stringify(response.data));
-  navigation.navigate("CardView",{}),
+  navigation.navigate("CardView",{price:price});
   Alert.alert(
-    'Request submit successfull...'
- )
+    'Request Submit successfull'
+ );
+  setloding(false)
 })
 .catch(function (error) {
   console.log(error);
+  Alert.alert(
+    'Invaild Data...'
+ );
   setloding(false)
 });
 }
 
   return (
-          <ScrollView style={styles.container}>
+          <View style={styles.container}>
         <Spinner visible={isLoading} />
          <View style={styles.header}>
     <View style={{justifyContent:'center',flexDirection:'row',alignItems:'center',}}>
-      <View style={{height:50,width:50,borderRadius:25,backgroundColor:'#fff',elevation:10,marginHorizontal:5,marginRight:20,justifyContent:'center',alignItems:'center'}}>
+      <View style={{height:50,width:50,borderRadius:25,backgroundColor:'#fff',marginHorizontal:5,marginRight:20,justifyContent:'center',alignItems:'center'}}>
         <Image resizeMode='contain' style={{height:50,width:50,borderRadius:25}} source={require('../assests/userproile.png')} />
       </View>
       <Text style={{color:'#fff',fontSize:30,lineHeight:30,fontWeight:'700',fontFamily:'Poppins',textTransform:'capitalize'}}>Request mechanic</Text>
     </View>
 </View>
-<View style={{backgroundColor:'#fff',elevation:10,margin:20,height:60,justifyContent:'center',borderColor:COLORS.primary,borderWidth:2,borderRadius:10}}>
-<TextInput placeholder='Title' placeholderTextColor={'#000'}
- value={title} onChangeText={(text) => setTittle(text)}
-style={{paddingHorizontal:10,height:60,borderRadius:5,color:'#000'}}></TextInput>
+<View style={{height:60,backgroundColor:'#fff',margin:20,borderColor:COLORS.primary,borderWidth:2,borderRadius:10,}}>
+<TextInput
+                style={{
+                  color: 'black',width:'95%'
+                }}
+                value={title}
+                onChangeText={(text) => setTittle(text)}
+                placeholder="Enter Your Problem"
+                placeholderTextColor={'rgba(0,0,0,0.9)'}
+                autoCapitalize="none"></TextInput>
+{/* <TextInput placeholder='Title' placeholderTextColor='#000' multiline={true} onChangeText={(newValue) => setTittle(newValue)} style={{marginHorizontal:10,height:60,color:'#000'}}></TextInput> */}
 </View>
-<View style={{height:200,backgroundColor:'#fff',margin:20,elevation:10,borderColor:COLORS.primary,borderWidth:2,borderRadius:10}}>
-<TextInput placeholder='Description' placeholderTextColor={'#000'}
- value={description} onChangeText={(text) => setDescription(text)}
- style={{paddingHorizontal:10,borderRadius:5,color:'#000'}}></TextInput>
+<View style={{height:200,backgroundColor:'#fff',margin:20,borderColor:COLORS.primary,borderWidth:2,borderRadius:10}}>
+<TextInput placeholder='Description' placeholderTextColor='#000' multiline={true} onChangeText={(text) => setDescription(text)} value={description} style={{width:'95%',paddingHorizontal:10,borderRadius:5,color:'#000'}}></TextInput>
 </View>
-<View style={{height:200,width:Dimensions.get('window').width-40,alignSelf:'center'}}>
+<View style={{height:130,width:Dimensions.get('window').width-40,alignSelf:'center',width:'80%'}}>
 <Text style={{fontSize:30,color:COLORS.primary,fontWeight:'bold',padding:5,borderRadius:10}}>Your Current Location</Text>
 <Text style={{fontSize:20,color:'#000',padding:5}}>Latitude: {lat}</Text>
 <Text style={{fontSize:20,color:'#000',padding:5}}>Longitude: {long}</Text>
@@ -81,7 +81,7 @@ style={{paddingHorizontal:10,height:60,borderRadius:5,color:'#000'}}></TextInput
 <TouchableOpacity style={styles.button}  onPress={() => {handleStore()}}>
 <Text style={{color:'#fff',fontSize:20,fontWeight:'bold'}}>Submit Form</Text>
 </TouchableOpacity>
-</ScrollView>
+</View>
   )
 }
 
@@ -90,7 +90,6 @@ export default SubmitRequest
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height:Dimensions.get('window').height,
         width:Dimensions.get('window').width
       },
     header:{
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
         alignSelf:'center'
     },
       button: {alignSelf:'center'
-        ,height:50,marginTop:20,bottom:5,position:'absolute',
+        ,height:50,marginTop:5,
         backgroundColor:COLORS.primary,
         width:150,justifyContent:'center'
         ,alignItems:'center',

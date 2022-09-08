@@ -40,7 +40,7 @@ const Problems = ({route,navigation}) => {
         <OrientationLocker orientation={PORTRAIT} />
     <View style={styles.header}>
       <Image source={require('../assests/idea.png')} style={{height:30,width:30,marginRight:30}}/>
-<Text style={styles.text}>Slect Problems
+<Text style={styles.text}>Select Problem
 </Text>
     </View>
    <FlatList
@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
     text:{
 fontSize:30,
 fontWeight:'bold',
-color:'#fff'
+color:'#fff',textTransform:'uppercase'
     }
 })

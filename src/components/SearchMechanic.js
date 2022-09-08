@@ -7,7 +7,8 @@ import { ScrollView } from 'react-native-virtualized-view';
 
 const SearchMechanic = ({route,navigation}) => {
     const {userInfo,Clocation} = useContext(AuthContext);
-    const [isLoading,setloding]=useState(true)
+    const [isLoading,setloding]=useState(true);
+     const [rating,setRating]=useState('')
     const [data,setData]=useState('');
     const lat=Clocation.latitude;
     const long=Clocation.longitude;
@@ -15,9 +16,6 @@ const SearchMechanic = ({route,navigation}) => {
     const search=()=>{
         setloding(true)
          var axios = require('axios');
-        var FormData = require('form-data');
-        var data = new FormData();
-        // data.append('category_id',category_id);
         var config = {
           method: 'get',
           url: `https://abdulrauf.laraartisan.com/api/mechanic/list?latitude=${lat}&longitude=${long}`,
@@ -25,7 +23,6 @@ const SearchMechanic = ({route,navigation}) => {
             'Accept': 'application/json', 
             'Content-Type': 'application/json', 
             'Authorization': `Bearer ${userInfo.access_token}`
-           
           },
         };
         
@@ -43,7 +40,28 @@ const SearchMechanic = ({route,navigation}) => {
           
         });
     }
+  
+const fun=({props})=>{
+  switch (de) {
+    case 1:
+      setRating('★')
+      break
+    case 2:
+     setRating('★ ★')
+      break
+    case 3:
+      setRating('★ ★ ★')
+      break
+    case 4:
+      setRating('★ ★ ★ ★')
+      break
+    default:
+      setRating('★ ★ ★ ★ ★')
+  }
+}
+
     useEffect(() => { 
+      // fun();
      search();
       }, []);
       const renderItem = ({ item }) => (
@@ -55,10 +73,14 @@ const SearchMechanic = ({route,navigation}) => {
           </View>
           <View style={{alignSelf:'center'}}>
       <Text style={{fontSize:30,color:'#000',textTransform:'capitalize'}}>{item.name}</Text>
-      <Text style={{fontSize:20,color:'#000',fontWeight:'700',marginVertical:5}}>{item.distance}</Text>
-      <Text style={{fontSize:20,color:'#000'}}>$20/day</Text>
+      <Text style={{fontSize:20,color:'#000',fontWeight:'700',marginVertical:5}}>Charge: {item.price}</Text>
+      <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+      <Text style={{fontSize:20,color:'#000'}}>Rating: {item.rating}</Text>
+      <Text style={{fontSize:30,color:'yellow'}}> ★</Text>
+
+      </View>
       <View style={{flexDirection:'row',alignItems:'center',marginVertical:5}}>
-        <Image style={{height:20,width:20,marginRight:5}} source={require('../assests/star.png')}/>
+        <Text style={{fontSize:20,color:'yellow'}}>{rating}</Text>
       </View>
       </View>
        <TouchableOpacity
@@ -66,7 +88,8 @@ const SearchMechanic = ({route,navigation}) => {
        onPress={()=>{navigation.navigate('SubmitRequest',{
         mechanic_id:item.id,
         lat:lat,
-        long:long
+        long:long,
+        price:item.price,
         })}}>
       <Text style={{fontSize:14,color:'white'}}>Contact</Text>
        </TouchableOpacity>
@@ -106,21 +129,14 @@ export default SearchMechanic
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginBottom:60
-        // marginTop: StatusBar.currentHeight || 0,
+        flex: 1
       }, header:{
         flexDirection:'row',
-        marginBottom:5,
         height:60,paddingBottom:10,
         width:'100%',paddingHorizontal:30,backgroundColor:COLORS.primary,
         justifyContent:'space-between',
         alignItems:'center',
         alignSelf:'center'
-    },
-    elevation: {
-      shadowColor: 'gray',
-      elevation: 20,
     },
       item: {
         backgroundColor: '#fff',
